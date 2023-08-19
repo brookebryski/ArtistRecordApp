@@ -19,3 +19,4 @@ const { Schema } = mongoose;
 
     const Record = mongoose.model('Record', recordSchema);
 
+    module.exports = Record;
