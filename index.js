@@ -81,6 +81,12 @@ app.post('/artists', async (req, res) => {
     res.redirect('/artists');
 })
 
+app.get('/artists/:id', async (req, res) => {
+    const { id } = req.params;
+    const artist = await Artist.findById(id);
+    res.render('artists/show', { artist })
+})
+
 app.listen(3000, () => {
     console.log("APP IS LISTENING ON PORT 3000!")
 })
