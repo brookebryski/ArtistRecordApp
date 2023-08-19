@@ -6,6 +6,7 @@ const methodOverride = require('method-override')
 
 const Record = require('./models/record');
 const Artist = require('./models/artist');
+const types =  ['artist', 'duo', 'group']
 
 mongoose.connect('mongodb://localhost:27017/artistRecord', { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
@@ -68,6 +69,16 @@ app.delete('/records/:id', async (req, res) => {
 app.get('/artists', async (req, res) => {
     const artists = await Artist.find({});
     res.render('artists/index', { artists });
+})
+
+app.get('/artists/new', (req, res) => {
+    res.render('artists/new', { types });
+})
+
+app.post('/artists', async (req, res) => {
+    const artist = new Artist(req.body);
+    await artist.save();
+    res.redirect('/artists');
 })
 
 app.listen(3000, () => {

@@ -8,9 +8,9 @@
 <body>
     <ul>
         <% for (let artist of artists) { %>
-        <li><%= artist.name %></li>
-        <li><%= artist.type %></li>
+        <li><a href="/artists/<%=artist._id%>"><%= artist.name %></a></li>
         <% } %>
     </ul>
+    <a href="/artists/new">Create a new artist</a>
 </body>
 </html>
