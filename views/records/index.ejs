@@ -9,7 +9,7 @@
     <h1>Records</h1>
     <ul>
         <% for(let record of records) { %>
-        <li><%= record.title %> </li>
+        <li><a href="/records/<%= record.id %>"><%= record.title %></a></li>
         <% }%>
     </ul>
     

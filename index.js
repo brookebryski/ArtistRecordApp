@@ -42,6 +42,18 @@ app.get('/records/:id', async (req, res) => {
     res.render('records/show', { record });
 })
 
+app.get('/records/:id/edit', async (req, res) => {
+    const { id } = req.params;
+    const record = await Record.findById(id);
+    res.render('records/edit', { record });
+})
+
+app.put('/records/:id', async (req, res) => {
+    const { id } = req.params;
+    const record = await Record.findByIdAndUpdate(id, req.body, { runValidators: true, new: true });
+    res.redirect(`/records/${record._id}`)
+})
+
 app.listen(3000, () => {
     console.log("APP IS LISTENING ON PORT 3000!")
 })
