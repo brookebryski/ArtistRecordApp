@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artists</title>
+</head>
+<body>
+    <ul>
+        <% for (let artist of artists) { %>
+        <li><%= artist.name %></li>
+        <li><%= artist.type %></li>
+        <% } %>
+    </ul>
+</body>
+</html>

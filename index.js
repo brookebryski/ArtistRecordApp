@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const methodOverride = require('method-override')
 
 const Record = require('./models/record');
+const Artist = require('./models/artist');
 
 mongoose.connect('mongodb://localhost:27017/artistRecord', { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
@@ -20,6 +21,8 @@ app.set('view engine', 'ejs');
 
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'))
+
+// record routes
 
 app.get('/records', async (req, res) => {
     const records = await Record.find({});
@@ -58,6 +61,13 @@ app.delete('/records/:id', async (req, res) => {
     const { id } = req.params;
     const deltedRecord = await Record.findByIdAndDelete(id);
     res.redirect('/records');
+})
+
+// artist routes
+
+app.get('/artists', async (req, res) => {
+    const artists = await Artist.find({});
+    res.render('artists/index', { artists });
 })
 
 app.listen(3000, () => {
