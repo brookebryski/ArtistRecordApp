@@ -14,6 +14,10 @@ const { Schema } = mongoose;
         rating: {
             type: Number,
             required: true
+        },
+        artist: {
+            type: Schema.Types.ObjectId,
+            ref: 'Artist'
         }
     })
 

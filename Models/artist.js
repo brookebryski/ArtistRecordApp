@@ -9,7 +9,14 @@ const artistSchema = new Schema({
     type: {
         type: String,
         enum: ['artist', 'duo', 'group']
-    }
+    },
+    records: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Record'
+        }
+    ]
+     
 })
 
 const Artist = mongoose.model('Artist', artistSchema);
