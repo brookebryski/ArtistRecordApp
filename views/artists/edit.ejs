@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Artist</title>
+</head>
+<body>
+    <h1>Edit <%= artist.name %></h1>
+    <form action="/artists/<%=artist._id%>?_method=PUT" method="POST">
+        <div>
+            <label for="name">Name</label>
+            <input type="text" name="name" id="name" placeholder="name" value="<%=artist.name%>">
+        </div>
+        <div>
+        <select name="type" id="type">
+            <% for(let type of types){ %>
+            <option value="<%=type%>"><%=type%></option>
+            <% } %>
+            </select>
+        </div>
+        <button>Submit</button>
+    </form>
+</body>
+</html>

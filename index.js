@@ -87,6 +87,24 @@ app.get('/artists/:id', async (req, res) => {
     res.render('artists/show', { artist })
 })
 
+app.get('/artists/:id/edit', async (req, res) => {
+    const { id } = req.params;
+    const artist = await Artist.findById(id);
+    res.render('artists/edit', { artist, types })
+})
+
+app.put('artists/:id', async (req, res) => {
+    const { id } = req.params;
+    const artist = await Artist.findByIdAndUpdate(id, req.body, { runValidators: true, new: true });
+    res.redirect(`/artists/${artist._id}`);
+})
+
+app.delete('/artists/:id/', async (req, res) => {
+    const { id }= req.params;
+    const deletedArtist = await Artist.findByIdAndDelete(id);
+    res.redirect('/artists');
+})
+
 app.listen(3000, () => {
     console.log("APP IS LISTENING ON PORT 3000!")
 })
