@@ -9,6 +9,7 @@
    <h1><%= record.title  %></h1>
    <h3><%= record.rating  %> stars</h3>
    <h3><%= record.description  %></h3>
+   <li>Artist: <a href="/artists/<%=record.artist._id%>"><%= record.artist.name%></a></li>
    <a href="/records/<%=record.id%>/edit">Edit <%=record.title%></a>
    <form action="/records/<%=record._id%>?_method=DELETE" method="POST">
     <button>Delete <%=record.title%></button>

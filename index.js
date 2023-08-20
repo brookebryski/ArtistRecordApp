@@ -42,7 +42,7 @@ app.post('/records', async (req, res) => {
 
 app.get('/records/:id', async (req, res) => {
     const { id } = req.params;
-    const record = await Record.findById(id);
+    const record = await Record.findById(id).populate('artist', 'name');
     res.render('records/show', { record });
 })
 
@@ -57,6 +57,7 @@ app.put('/records/:id', async (req, res) => {
     const record = await Record.findByIdAndUpdate(id, req.body, { runValidators: true, new: true });
     res.redirect(`/records/${record._id}`)
 })
+
 
 app.delete('/records/:id', async (req, res) => {
     const { id } = req.params;
@@ -83,7 +84,7 @@ app.post('/artists', async (req, res) => {
 
 app.get('/artists/:id', async (req, res) => {
     const { id } = req.params;
-    const artist = await Artist.findById(id);
+    const artist = await Artist.findById(id).populate('records');
     res.render('artists/show', { artist })
 })
 
@@ -97,6 +98,23 @@ app.put('artists/:id', async (req, res) => {
     const { id } = req.params;
     const artist = await Artist.findByIdAndUpdate(id, req.body, { runValidators: true, new: true });
     res.redirect(`/artists/${artist._id}`);
+})
+
+app.get('/artists/:id/records/new', (req, res) => {
+    const { id } = req.params;
+    res.render('records/new', { id, types});
+})
+
+app.post('/artists/:id/records', async (req, res) => {
+    const { id } = req.params;
+    const artist = await Artist.findById(id);
+    const { title, description, rating } = req.body;
+    const record = new Record({ title, description, rating });
+    artist.records.push(record);
+    record.artist = artist;
+    await artist.save();
+    await record.save();
+    res.redirect(`/artists/${id}`)
 })
 
 app.delete('/artists/:id/', async (req, res) => {

@@ -8,6 +8,13 @@
 <body>
     <h1><%=artist.name%></h1>
     <h2><%=artist.type%></h2>
+    <h2>Records</h2>
+    <ul>
+        <% for(let record of artist.records) {%>
+        <li><a href="/records/<%=record._id%>"><%=record.title%></a></li>
+        <% } %>
+    </ul>
+    <a href="/artists/<%=artist._id%>/records/new">Add Record</a>
     <a href="/artists/<%=artist._id%>/edit">Edit Artist</a>
     <form action="/artists/<%=artist._id%>?_method=DELETE" method="POST">
         <button>Delete</button>
